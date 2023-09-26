@@ -8,7 +8,7 @@ use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
 use \App\Models\customer;
 
-class customer extends AdminController
+class Customer_controller extends AdminController
 {
     /**
      * Title for current resource.
