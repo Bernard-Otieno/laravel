@@ -27,6 +27,8 @@ class Customer_controller extends AdminController
         $grid = new Grid(new customer());
 
         $grid->column('customer_id', __('Customer id'));
+        $grid->column('First_Name', __('First Name'));
+        $grid->column('Second_Name', __('Second Name'));
         $grid->column('Email', __('Email'));
         $grid->column('Password', __('Password'));
         $grid->column('Account_no', __('Account no'));
@@ -47,6 +49,8 @@ class Customer_controller extends AdminController
         $show = new Show(customer::findOrFail($id));
 
         $show->field('customer_id', __('Customer id'));
+        $show->column('First_Name', __('First Name'));
+        $show->column('Second_Name', __('Second Name'));
         $show->field('Email', __('Email'));
         $show->field('Password', __('Password'));
         $show->field('Account_no', __('Account no'));
