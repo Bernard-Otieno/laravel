@@ -6,16 +6,16 @@ use OpenAdmin\Admin\Controllers\AdminController;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
-use \App\Models\customer;
+use \App\Models\User;
 
-class Customer_controller extends AdminController
+class User_controller extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'customer';
+    protected $title = 'User';
 
     /**
      * Make a grid builder.
@@ -24,9 +24,9 @@ class Customer_controller extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new customer());
+        $grid = new Grid(new User());
 
-        $grid->column('customer_id', __('Customer id'));
+        $grid->column('User_id', __('id'));
         $grid->column('First_Name', __('First Name'));
         $grid->column('Second_Name', __('Second Name'));
         $grid->column('Email', __('Email'));
@@ -46,9 +46,9 @@ class Customer_controller extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(customer::findOrFail($id));
+        $show = new Show(User::findOrFail($id));
 
-        $show->field('customer_id', __('Customer id'));
+        $show->field('User_id', __('User id'));
         $show->column('First_Name', __('First Name'));
         $show->column('Second_Name', __('Second Name'));
         $show->field('Email', __('Email'));
@@ -67,7 +67,7 @@ class Customer_controller extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new customer());
+        $form = new Form(new User());
 
         $form->email('Email', __('Email'));
         $form->password('Password', __('Password'));
