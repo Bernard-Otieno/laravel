@@ -25,4 +25,10 @@ Route::post('/registration', [AuthManager::class, 'registrationPost'])->name('re
 
 Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 
+Route::get('/loans', [AuthManager::class, 'loans'])->name('loans');
 
+Route::get('/transaction', [AuthManager::class, 'transaction'])->name('transaction');
+
+Route::get('/deposit', [AuthManager::class, 'deposit'])->name('deposit');
+
+Route::get('/history', [AuthManager::class, 'history'])->name('history');

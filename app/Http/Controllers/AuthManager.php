@@ -23,6 +23,31 @@ class AuthManager extends Controller
         }
         return view('registration');
     }
+    function loans(){
+        if(Auth::check()){
+             return view('loans');
+        }
+       return redirect()->intended(route('login'));
+    }
+    function transaction(){
+        if(Auth::check()){
+             return view('transaction');
+        }
+       return redirect()->intended(route('login'));
+    }
+    function deposit(){
+        if(Auth::check()){
+              return view('deposit');
+        }
+      return redirect()->intended(route('login'));
+    }
+    function history(){
+        if(Auth::check()){
+            return view('history');
+        }
+        return redirect()->intended(route('login'));
+    }
+
 
     function loginPost(Request $request){
         $request -> validate([
