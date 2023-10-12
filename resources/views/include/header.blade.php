@@ -1,24 +1,30 @@
-<nav class="navbar navbar-light bg-light">
-  <form class="container-fluid justify-content-start">
-    <ul>
-    <button class="btn btn-outline-success me-2" type="button">{{config('app.name')}}</button>
-    <a href="{{route('home')}}"> </a>
-    <button class="btn btn-sm btn-outline-primary" type="button">
-     Home</button>
-      @auth
-    <a href="{{route('logout')}}">
-    <button class="btn btn-sm btn-outline-danger" type="button">
-      logout</button></a>
-      @else
-       <a href="{{route('login')}}"> 
-        <button class="btn btn-sm btn-outline-primary" type="button">
-        Login</button></a>
-
-      <a href="{{route('registration')}}">
-    <button class="btn btn-sm btn-outline-primary" type="button">
-      Register</button></a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{route('home')}}">{{config('app.name')}}</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        @auth
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('logout')}}">logout</a>
+        </li>
+        @else
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('login')}}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('registration')}}">Register</a>
+        </li>
+      </ul>
       @endauth
-    </ul>
-    <!-- <span class="navbar-text"> @auth{{auth()->user()->First_Name}}@endauth</span> -->
-  </form>
+      <span class="navbar-text">
+        @auth{{auth()->user()->First_Name}} @endauth
+    </span>
+    </div>
+  </div>
 </nav>

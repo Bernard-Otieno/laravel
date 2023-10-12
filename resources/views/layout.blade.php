@@ -11,6 +11,9 @@
   </head>
   <body>
     @include('include.header')
+    @auth
+    @include('include.userNav')
+    @endauth
     <h1>@yield('content') </h1>
 
    
