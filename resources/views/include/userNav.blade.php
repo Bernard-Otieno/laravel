@@ -20,22 +20,24 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('loans')}}" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Apply for Loan</span> </a>
+                        <a href="{{route('loans')}}" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Apply for Loan</span> 
+                        </a>
                     </li>
                     <li>
                         <a href="{{route('deposit')}}" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Deposit</span></a>
                     </li>
                     <li>
-                        <a href="{{route('transaction')}}" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                        <a href="{{route('transaction')}}" class="nav-link px-0 align-middle ">
                             <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Make a Payment</span>
                         </a>
                         
                     </li>
                     <li>
-                        <a href="{{route('history')}}" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">View Your History</span> </a>
+                        <a href="{{route('history')}}"  class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">View Your History</span>
+                         </a>
                            
                     </li>
                     <li>
