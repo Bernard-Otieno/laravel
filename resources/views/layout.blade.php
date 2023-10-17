@@ -9,13 +9,13 @@
 
     <title>@yield('title', 'Bank Service')</title>
   </head>
+  
+   
   <body>
     @include('include.header')
-    @auth
-    @include('include.userNav')
-    @endauth
+  
     <h1>@yield('content') </h1>
-
+ @auth @include('include.userNav') @endauth
    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 

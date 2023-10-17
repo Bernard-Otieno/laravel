@@ -18,5 +18,6 @@ Route::group([
     $router->resource('accounts', accounts_controller::class);
     $router->resource('credit_-cards', card_Controller::class);
     $router->resource('report-transactions', reportTransaction_controller::class);
+    $router->resource('transactions', transaction_controller::class);
 
 });
