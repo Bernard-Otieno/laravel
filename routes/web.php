@@ -28,6 +28,7 @@ Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 Route::get('/loans', [AuthManager::class, 'loans'])->name('loans');
 
 Route::get('/transaction', [AuthManager::class, 'transaction'])->name('transaction');
+Route::post('/transaction', [AuthManager::class, 'transactionPost'])->name('transaction.post');
 
 Route::get('/deposit', [AuthManager::class, 'deposit'])->name('deposit');
 

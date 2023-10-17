@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\customer;
+use App\Models\transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,26 @@ class AuthManager extends Controller
         }
        return redirect()->intended(route('login'));
     }
+
+    function transactionPost(Request $request){
+        $request -> validate([
+            'card_no'=>'required',
+            'beneficiary_no'=>'required',
+            'amount'=>'required'
+        ]);
+      
+        $data['card_no'] = $request->card_no;
+        $data['beneficiary_no'] = $request->beneficiary_no;
+        $data['amount'] = $request->amount;
+        $transaction = transaction::create($data);
+        if(!$transaction){       
+             
+            return redirect(route('home'))->with("error", "Can not complete transaction");
+        }
+        return redirect(route('history'))->with("success", "Registration Successful");
+    }
+
+    
     function deposit(){
         if(Auth::check()){
               return view('deposit');

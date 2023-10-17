@@ -9,4 +9,10 @@ class transaction extends Model
     protected $table = 'transaction';
 
     protected $primaryKey = 'transaction_id';
+
+    protected $fillable = [
+        'card_no',
+        'beneficiary_no',
+        'amount',
+    ];
 }
