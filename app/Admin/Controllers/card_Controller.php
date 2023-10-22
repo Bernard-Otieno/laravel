@@ -68,7 +68,6 @@ class card_Controller extends AdminController
         $form = new Form(new credit_Card());
 
         $form->number('card_no', __('Card no'));
-        $form->number('Account_id', __('Account id'));
         $form->number('Amount', __('Amount'));
         $form->number('CVV', __('CVV'));
 
