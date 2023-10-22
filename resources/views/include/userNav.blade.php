@@ -4,7 +4,7 @@
   z-index: 1;
   top: 50px;
   left: 0;
-  background-color:#01040a;
+  background-color: #111;
   overflow-x: hidden;
   padding-top: 20px;">
     <div class="row flex-nowrap">

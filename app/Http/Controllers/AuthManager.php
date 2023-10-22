@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\credit_Card;
 use App\Models\customer;
 use App\Models\transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+
+use function Laravel\Prompts\select;
 
 class AuthManager extends Controller
 {
@@ -64,7 +68,24 @@ class AuthManager extends Controller
     }
     function history(){
         if(Auth::check()){
-            return view('history');
+
+            // return view('history');
+            $user=Auth::id();
+            // dd($user);
+            $account=DB::table('accounts')->where('Customer_id',$user)->value('credit_card_id');
+            // dd($account);
+            $history = DB::table('transaction')
+            ->where('card_id',$account)
+            ->get();
+//            $data = array();
+
+           //data => 0 => 'fields' 
+            // foreach($history[0] as $i){
+            //     $data[$i] = $i;
+            // }
+            return view('history', ['history'=>$history]);
+
+
         }
         return redirect()->intended(route('login'));
     }

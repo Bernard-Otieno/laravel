@@ -9,7 +9,16 @@
 
     <title>@yield('title', 'Bank Service')</title>
   </head>
-  
+  <style>
+    table th {
+   text-align: center; 
+}
+
+.table {
+   margin: auto;
+   width: 80% !important; 
+}
+  </style>
    
   <body>
     @include('include.header')
