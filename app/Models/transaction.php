@@ -12,6 +12,7 @@ class transaction extends Model
 
     protected $fillable = [
         'card_no',
+        'card_id',
         'beneficiary_no',
         'amount',
     ];
