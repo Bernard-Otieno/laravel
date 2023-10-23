@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use PragmaRX\Google2FA\Google2FA;
 use App\Models\credit_Card;
 use App\Models\customer;
 use App\Models\transaction;
@@ -134,4 +134,22 @@ class AuthManager extends Controller
         return redirect(route('login'));
 
     }
+    public function enable2FA()
+    {
+        // Generate a secret key
+        $google2fa = new Google2FA();
+        $secretKey = $google2fa->generateSecretKey();
+
+        // Generate a QR code URL
+        $qrCodeUrl = $google2fa->getQRCodeUrl(
+            config('app.name'),
+            Auth::user()->email,
+            $secretKey
+        );
+
+        // Pass the secret key and QR code URL to the view
+        return view('2fa-setup', compact('secretKey', 'qrCodeUrl'));
+    }
+
+
 }

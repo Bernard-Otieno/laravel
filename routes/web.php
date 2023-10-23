@@ -33,3 +33,6 @@ Route::post('/transaction', [AuthManager::class, 'transactionPost'])->name('tran
 Route::get('/deposit', [AuthManager::class, 'deposit'])->name('deposit');
 
 Route::get('/history', [AuthManager::class, 'history'])->name('history');
+
+Route::get('/2fa-setup', [AuthManager::class, 'enable2FA'])->name('2fa.setup');
+
