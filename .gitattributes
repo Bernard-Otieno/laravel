@@ -1,11 +1,23 @@
 * text=auto eol=lf
-
 *.blade.php diff=html
 *.css diff=css
 *.html diff=html
 *.md diff=markdown
 *.php diff=php
-
 /.github export-ignore
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
+data/data.csv filter=lfs diff=lfs merge=lfs -text
+data/fraudTest.csv filter=lfs diff=lfs merge=lfs -text
+data/fraudTrain.csv filter=lfs diff=lfs merge=lfs -text
+data/creditcard.csv filter=lfs diff=lfs merge=lfs -text
+*.csv filter=lfs diff=lfs merge=lfs -text
+*.ipynb filter=lfs diff=lfs merge=lfs -text
+model/creditcard.csv filter=lfs diff=lfs merge=lfs -text
+model/fraudTest.csv filter=lfs diff=lfs merge=lfs -text
+model/fraudTrain.csv filter=lfs diff=lfs merge=lfs -text
+model/data.csv filter=lfs diff=lfs merge=lfs -text
+model/glass.csv filter=lfs diff=lfs merge=lfs -text
+model/iris.csv filter=lfs diff=lfs merge=lfs -text
+model/wine.csv filter=lfs diff=lfs merge=lfs -text
+model/.csv filter=lfs diff=lfs merge=lfs -text

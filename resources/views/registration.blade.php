@@ -46,7 +46,7 @@
         <input type="text" class="form-control" name="Account_no" required>
     </div>
     
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
     </form>
 
 </div> 
