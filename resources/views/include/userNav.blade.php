@@ -35,7 +35,7 @@
                         
                     </li>
                     <li>
-                        <a href="{{route('history')}}"  class="nav-link px-0 align-middle">
+                        <a href="{{route('history')}}" name="history"  class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">View Your History</span>
                          </a>
                            

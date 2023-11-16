@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
 Route::get('/login', [AuthManager::class, 'login'])->name('login');
 Route::post('/login', [AuthManager::class, 'loginPost'])->name('login.post');
 
@@ -35,4 +36,9 @@ Route::get('/deposit', [AuthManager::class, 'deposit'])->name('deposit');
 Route::get('/history', [AuthManager::class, 'history'])->name('history');
 
 Route::get('/2fa-setup', [AuthManager::class, 'enable2FA'])->name('2fa.setup');
+
+Route::get('/predict', [AuthManager::class, 'prediction'])->name('prediction');
+Route::post('/predictions', [AuthManager::class, 'predictionPost'])->name('prediction.post');
+
+
 

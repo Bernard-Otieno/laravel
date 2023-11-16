@@ -134,22 +134,44 @@ class AuthManager extends Controller
         return redirect(route('login'));
 
     }
-    public function enable2FA()
-    {
-        // Generate a secret key
-        $google2fa = new Google2FA();
-        $secretKey = $google2fa->generateSecretKey();
+    // public function enable2FA()
+    // {
+    //     // Generate a secret key
+    //     $google2fa = new Google2FA();
+    //     $secretKey = $google2fa->generateSecretKey();
 
-        // Generate a QR code URL
-        $qrCodeUrl = $google2fa->getQRCodeUrl(
-            config('app.name'),
-            Auth::user()->email,
-            $secretKey
-        );
+    //     // Generate a QR code URL
+    //     $qrCodeUrl = $google2fa->getQRCodeUrl(
+    //         config('app.name'),
+    //         Auth::user()->email,
+    //         $secretKey
+    //     );
 
-        // Pass the secret key and QR code URL to the view
-        return view('2fa-setup', compact('secretKey', 'qrCodeUrl'));
+    //     // Pass the secret key and QR code URL to the view
+    //     return view('2fa-setup', compact('secretKey', 'qrCodeUrl'));
+    // }
+
+        
+    function prediction(){
+        if(Auth::check()){
+              return view('prediction');
+        }
+      return redirect()->intended(route('login'));
     }
+    function predictionPost(Request $request){
+        $amount = $_POST['amount'];
+        $time =$_POST['time'];
+
+        $command = escapeshellcmd("python C:\Xampp\htdocs\136675\laravel\IS project model\app.py $amount $time");
+        $output = shell_exec($command);
+        #C:\Xampp\htdocs\136675\laravel\IS project model\model.py
+        echo $output;
+        return redirect(route('prediction'))->with($output);
+        
+    }
+
+
+
 
 
 }
