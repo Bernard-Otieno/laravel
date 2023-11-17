@@ -1,5 +1,5 @@
 @extends('layout') 
-@section('title','predict')
+@section('title','payment')
 @section('content')
 <style>
     /* Custom CSS to center the form horizontally */
@@ -16,15 +16,12 @@
         <form id="predictionForm" class="ms-auto me-auto mt-3" style="width: 500px;">
             @csrf
             <div>
-                <label for="type">Your Account_no:</label>
+                <label for="type"> Type:</label>
+               <p>1.Cash out 2.Payment 3.Cash in 4.transfer 5.Debit</p>
                 <input type="number" id="type" name="type" required>
             </div>
 
-            <label for="type">Receiever Account Number:</label>
-                <input type="number" id="type" name="type" required>
-            </div>
-
-            <!-- <div>
+            <div>
                 <label for="oldBalance">Old Balance:</label>
                 <input type="text" id="oldBalance" name="oldBalance" required>
             </div>
@@ -32,7 +29,7 @@
             <div>
                 <label for="newBalance">New Balance:</label>
                 <input type="text" id="newBalance" name="newBalance" required>
-            </div> -->
+            </div>
 
             <div>
                 <label for="amount">Amount:</label>

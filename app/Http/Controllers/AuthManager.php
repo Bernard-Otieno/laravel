@@ -152,23 +152,13 @@ class AuthManager extends Controller
     // }
 
         
-    function prediction(){
+    function payment(){
         if(Auth::check()){
               return view('prediction');
         }
       return redirect()->intended(route('login'));
     }
-    function predictionPost(Request $request){
-        $amount = $_POST['amount'];
-        $time =$_POST['time'];
-
-        $command = escapeshellcmd("python C:\Xampp\htdocs\136675\laravel\IS project model\app.py $amount $time");
-        $output = shell_exec($command);
-        #C:\Xampp\htdocs\136675\laravel\IS project model\model.py
-        echo $output;
-        return redirect(route('prediction'))->with($output);
-        
-    }
+    
 
 
 
