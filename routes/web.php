@@ -41,4 +41,8 @@ Route::get('/predict', [AuthManager::class, 'prediction'])->name('prediction');
 Route::post('/predictions', [AuthManager::class, 'predictionPost'])->name('prediction.post');
 
 
+Route::get('/payment', [AuthManager::class, 'payment'])->name('payment');
+//Route::post('/predictions', [AuthManager::class, 'predictionPost'])->name('prediction.post');
+
+
 
