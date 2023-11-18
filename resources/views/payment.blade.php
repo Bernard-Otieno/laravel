@@ -1,85 +1,57 @@
-@extends('layout') 
-@section('title','payment')
+@extends('layout')
+
+@section('title', 'Perform Transaction')
+
 @section('content')
 <style>
     /* Custom CSS to center the form horizontally */
     .form-container {
         display: flex;
         justify-content: center;
+        align-items: center; /* Vertically align the form */
+        height: 100vh; /* Adjust the height for centering vertically */
     }
     .custom-form {
-        width: 80%; /* Adjust the width as needed */
+        width: 400px; /* Adjust the width as needed */
+        padding: 20px; /* Add padding for better readability */
+        border: 1px solid #ccc; /* Optional: Add a border */
+        border-radius: 5px; /* Optional: Add border radius */
+        background-color: #f9f9f9; /* Optional: Add background color */
     }
 </style>
-<div class="container mt-5">
-    <div class="form-container">
-        <form id="predictionForm" class="ms-auto me-auto mt-3" style="width: 500px;">
-            @csrf
-            <div>
-                <label for="type"> Type:</label>
-               <p>1.Cash out 2.Payment 3.Cash in 4.transfer 5.Debit</p>
-                <input type="number" id="type" name="type" required>
-            </div>
 
-            <div>
-                <label for="oldBalance">Old Balance:</label>
-                <input type="text" id="oldBalance" name="oldBalance" required>
-            </div>
+<div class="container-fluid">
+    <div class="row form-container">
+        <div class="col-md-6 col-sm-12">
+            <form method="POST" action="{{ route('payment.post') }}" class="custom-form">
+                @csrf
 
-            <div>
-                <label for="newBalance">New Balance:</label>
-                <input type="text" id="newBalance" name="newBalance" required>
-            </div>
+                <div class="mb-3">
+                   <!-- Display the account details -->
+                <div>
+                    <label for="accountNumber">Account Number:</label>
+                    <input type="text" id="accountNumber" name="accountNumber" value="{{ $userAccount }}" readonly>
+                </div>
 
-            <div>
-                <label for="amount">Amount:</label>
-                <input type="text" id="amount" name="amount" required>
-            </div>
+                </div>
 
-            <div>
-                <button type="button" onclick="submitForm()">Submit</button>
-            </div>
-        </form>
+                <div class="mb-3">
+                    <label for="recipientAccount" class="form-label">Recipient Account</label>
+                    <input type="text" class="form-control" id="recipientAccount" name="recipient_account" required>
+                </div>
+
+
+
+                <div class="mb-3">
+                <p>Your Total:{{ $userTotal }}</p>
+                    <label for="amount" class="form-label">Amount</label>
+                    <input type="text" class="form-control" id="amount" name="amount" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Perform Transaction</button>
+            </form>
+        </div>
     </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-    function submitForm() {
-        // Get form data
-        var formData = {
-            type: $("#type").val(),
-            oldBalance: $("#oldBalance").val(),
-            newBalance: $("#newBalance").val(),
-            amount: $("#amount").val(),
-            _token: $("input[name='_token']").val(),
-        };
-
-        // Construct the URL with appended parameters
-    var url = "http://127.0.0.1:5000/prediction/" +
-             formData.type +
-        "/" + formData.amount +
-        "/" + formData.oldBalance +
-        "/" + formData.newBalance;
-      
-
-
-        // Send AJAX request to Flask API
-        $.ajax({
-            type: "GET",
-            url: url,
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(formData),
-            success: function (data) {
-                // Handle the success response
-                console.log("Success:", data);
-            },
-            error: function (error) {
-                // Handle the error response
-                console.error("Error:", error);
-            },
-        });
-    }
-</script>
 
 @endsection

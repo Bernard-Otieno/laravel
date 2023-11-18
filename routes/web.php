@@ -42,7 +42,12 @@ Route::post('/predictions', [AuthManager::class, 'predictionPost'])->name('predi
 
 
 Route::get('/payment', [AuthManager::class, 'payment'])->name('payment');
-//Route::post('/predictions', [AuthManager::class, 'predictionPost'])->name('prediction.post');
+Route::post('/payment_made', [AuthManager::class, 'paymentPost'])->name('payment.post');
+
+Route::get('/apply', function () {
+    return view('account_apply');
+})->name('apply');
+Route::post('/account', [AuthManager::class, 'createBankAccount'])->name('account');
 
 
 

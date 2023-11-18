@@ -29,7 +29,7 @@
                             <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Deposit</span></a>
                     </li>
                     <li>
-                        <a href="{{route('transaction')}}" class="nav-link px-0 align-middle ">
+                        <a href="{{route('payment')}}" class="nav-link px-0 align-middle ">
                             <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Make a Payment</span>
                         </a>
                         
@@ -51,3 +51,38 @@
         
     </div>
 </div>
+    <style>
+        /* Custom CSS to center the form horizontally */
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Vertically align the form */
+            height: 100vh; /* Adjust the height for centering vertically */
+        }
+
+        .custom-form {
+            width: 400px; /* Adjust the width as needed */
+            padding: 20px; /* Add padding for better readability */
+            border: 1px solid #ccc; /* Optional: Add a border */
+            border-radius: 5px; /* Optional: Add border radius */
+            background-color: #f9f9f9; /* Optional: Add background color */
+        }
+
+        /* Adjust the font size and weight for labels */
+        .form-label {
+            font-size: 16px; /* Adjust the font size */
+            font-weight: normal; /* Set font weight to normal */
+        }
+
+        /* Adjust the font size and weight for form inputs */
+        .form-control {
+            font-size: 14px; /* Adjust the font size */
+            font-weight: normal; /* Set font weight to normal */
+        }
+
+        /* Adjust the font size and weight for paragraphs */
+        p {
+            font-size: 14px; /* Adjust the font size */
+            font-weight: normal; /* Set font weight to normal */
+        }
+    </style>

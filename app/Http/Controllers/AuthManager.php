@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\accounts;
 use PragmaRX\Google2FA\Google2FA;
 use App\Models\credit_Card;
 use App\Models\customer;
@@ -11,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
 
 use function Laravel\Prompts\select;
 
@@ -112,21 +115,20 @@ class AuthManager extends Controller
             'First_Name'=>'required',
             'Second_Name'=>'required',
             'email'=>'required|unique:users',
-            'Account_no'=>'required|unique:users',
             'password'=>'required'
         ]);
         // dd($request);
         $data['First_Name'] = $request->First_Name;
         $data['Second_Name'] = $request->Second_Name;
         $data['email'] = $request->email;
-        $data['Account_no'] = $request->Account_no;
         $data['password'] = Hash::make($request->password);
         $User = User::create($data);
         if(!$User){       
              dd($data);
-            return redirect(route('registration'))->with("error", "Can not Register");
+            return redirect(route('registration'))->with('Failed');
         }
-        return redirect(route('login'))->with("success", "Registration Successful");
+        
+        return redirect(route('apply'))->with("success", "Registration Successful");
     }
     function logout(){
         Session::flush();
@@ -134,30 +136,119 @@ class AuthManager extends Controller
         return redirect(route('login'));
 
     }
-    // public function enable2FA()
-    // {
-    //     // Generate a secret key
-    //     $google2fa = new Google2FA();
-    //     $secretKey = $google2fa->generateSecretKey();
+     public function createBankAccount(Request $request)
+    {
+        $mytime = Carbon::now();
+         // Fetch user data from the database
+         $userData = $request->email;
+        $id= DB::table('users')
+            ->where('email',$userData)
+            ->value('id');
+    
+                    // Available alpha characters
+            //    dd($id);
+            $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            $pin = '';
 
-    //     // Generate a QR code URL
-    //     $qrCodeUrl = $google2fa->getQRCodeUrl(
-    //         config('app.name'),
-    //         Auth::user()->email,
-    //         $secretKey
-    //     );
+            for ($i = 0; $i < 10; $i++) {
+                $pin .= $characters[rand(0, strlen($characters) - 1)];
+            }
 
-    //     // Pass the secret key and QR code URL to the view
-    //     return view('2fa-setup', compact('secretKey', 'qrCodeUrl'));
-    // }
+// $pin contains a single PIN with 10 characters
+
+            
+            // $generatedPins now contains an array of 10 PINs
+            
+         // Perform any necessary validation or checks on $userData
+ 
+         // Create a bank account for the user
+         $bankAccount = accounts::create([
+            'Customer_id' => $id,
+             'Account_no' =>$pin,
+             'Amount' => 0,
+             'created_at'=>  $mytime,
+             'updated_at'=>  $mytime,
+             // Assuming you have a function to generate a unique account number
+             // Add other fields needed for the bank account creation
+         ]);
+         if(!$bankAccount){       
+            dd($bankAccount);
+           return redirect(route('registration'))->with("error", "Can not Register");
+       }
+ 
+         // Redirect or return a response based on the success/failure of the bank account creation
+         // For example:
+         return redirect()->intended(route('login'));
+        }
 
         
     function payment(){
         if(Auth::check()){
-              return view('prediction');
+            $user = Auth::user();
+
+            if ($user) {
+                // User is logged in, retrieve their account details
+                $id = $user->id;
+                // Fetch account details using the $accountId or any other field you have
+            } 
+            $userAccount =DB::table('accounts')
+            ->where('Customer_id',$id)
+            ->value('Account_no');
+             
+
+            $userTotal = DB::table('accounts')
+            ->where('Customer_id',$id)
+            ->value('Amount');
+            return view('payment')->with([
+                'userAccount' => $userAccount,
+                'userTotal' => $userTotal,
+            ]);
         }
       return redirect()->intended(route('login'));
     }
+    function paymentPost(Request $request){
+       
+        $user = Auth::user();
+
+            if ($user) {
+                // User is logged in, retrieve their account details
+                $id = $user->id;
+                // Fetch account details using the $accountId or any other field you have
+            } 
+
+            dd($id);
+           
+            // Get data from the form (sender_account, recipient_account, amount)
+            $senderAccount =DB::table('accounts')
+            ->where('Customer_id',$id)
+            ->value('Account_no');
+            $recipientAccount = $request->input('recipient_account');
+            $amount = $request->input('amount');
+    
+            // Fetch old balances from the database
+            $senderOldBalance = DB::table('accounts')->where('Account_no', $senderAccount)->value('Amount');
+            $recipientOldBalance = DB::table('accounts')->where('Account_no', $recipientAccount)->value('Amount');
+    
+            // Calculate new balances
+            $senderNewBalance = $senderOldBalance - $amount;
+            $recipientNewBalance = $recipientOldBalance + $amount;
+    
+            // Update balances in the database
+            DB::table('accounts')->where('Account_no', $senderAccount)->update(['Amount' => $senderNewBalance]);
+            DB::table('accounts')->where('account_number', $recipientAccount)->update(['Amount' => $recipientNewBalance]);
+
+            dd($senderOldBalance,$recipientOldBalance,$senderNewBalance,$recipientNewBalance);
+    
+            // Pass values back to the frontend
+            return response()->json([
+                'sender_old_balance' => $senderOldBalance,
+                'sender_new_balance' => $senderNewBalance,
+                'recipient_old_balance' => $recipientOldBalance,
+                'recipient_new_balance' => $recipientNewBalance,
+            ]);
+
+        
+        }
     
 
 
