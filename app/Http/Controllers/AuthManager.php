@@ -234,11 +234,7 @@ class AuthManager extends Controller
             $senderNewBalance = $senderOldBalance - $amount;
             $recipientNewBalance = $recipientOldBalance + $amount;
     
-            // Update balances in the database
-            DB::table('accounts')->where('Account_no', $senderAccount)->update(['Amount' => $senderNewBalance]);
-            DB::table('accounts')->where('Account_no', $recipientAccount)->update(['Amount' => $recipientNewBalance]);
-
-    
+           
             // // Pass values back to the frontend
             // return response()->json([
             //     'type' => $type,
@@ -272,11 +268,27 @@ class AuthManager extends Controller
 
         if ($responseData == 0) {
             // Redirect to success page
+             // Update balances in the database
+             DB::table('accounts')->where('Account_no', $senderAccount)->update(['Amount' => $senderNewBalance]);
+             DB::table('accounts')->where('Account_no', $recipientAccount)->update(['Amount' => $recipientNewBalance]);
+             $senderCard =DB::table('accounts')
+            ->where('Customer_id',$id)
+            ->value('credit_card_id');
+            $RecipientCard =DB::table('accounts')
+            ->where('Account_no',$recipientAccount)
+            ->value('credit_card_id');
+            $transactionData = [
+                'card_id'=>$senderCard,
+                'card_no' => $senderAccount,
+                'beneficiary_no' => $RecipientCard,
+                'Amount' => $amount,
+                'created_at' => now(), // Set the created_at timestamp if necessary
+                'updated_at' => now(), // Set the updated_at timestamp
+            ];
+            DB::table('transaction')->insert($transactionData);
+
             return redirect()->route('success_page');
 
-
-
-            
         } else {
             // Handle unsuccessful transaction (fraudulent)
             // You might show an error message or perform other actions
