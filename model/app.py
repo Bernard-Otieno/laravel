@@ -8,13 +8,33 @@ app = Flask(__name__)
 CORS(app)
 api = Api(app)
 
-class prediction(Resource):
-    def get(self, type, amount,  oldbalanceOrg, newbalanceOrig):
-        # Convert input features to integers
-        features = [int(type), int(amount), int(oldbalanceOrg), int(newbalanceOrig)]
+class Prediction(Resource):
+    def post(self):
+        data = request.get_json()
+
+        # Extract the values from the JSON payload
+        type_val = data.get('type')
+        amount = data.get('amount')
+        old_balance_org = data.get('sender_old_balance')
+        new_balance_orig = data.get('sender_new_balance')
+        recipient_old_balance = data.get('recipient_old_balance')
+        recipient_new_balance = data.get('recipient_new_balance')
+
+            # Check if any value is None before converting to integers
+        if None in (type_val, amount, old_balance_org, new_balance_orig, recipient_old_balance, recipient_new_balance):
+            return "One or more required fields are missing or contain None values", 400
+
+        # Now convert to integers
+        features = [
+            int(type_val), int(amount), int(old_balance_org), int(new_balance_orig),
+            int(recipient_old_balance), int(recipient_new_balance)
+        ]
 
         # Create a DataFrame with the input features
-        df = pd.DataFrame([features], columns=['type', 'amount', 'oldbalanceOrg', 'newbalanceOrig'])
+        df = pd.DataFrame([features], columns=[
+            'type', 'amount', 'oldbalanceOrg', 'newbalanceOrig',
+            'oldbalanceDest', 'newbalanceDest'
+        ])
 
         # Load the model
         model = pickle.load(open('my_model.pkl', 'rb'))
@@ -25,14 +45,7 @@ class prediction(Resource):
 
         return str(prediction)
 
-class GetData(Resource):
-    def get(self):
-        df = pd.read_csv('data.csv')
-        res = df.to_json(orient='records')
-        return res
-
-api.add_resource(GetData, '/api')
-api.add_resource(prediction, '/prediction/<int:type>/<int:amount>/<int:oldbalanceOrg>/<int:newbalanceOrig>')
+api.add_resource(Prediction, '/prediction')  # Define the endpoint for prediction
 
 if __name__ == '__main__':
     app.run(debug=True)

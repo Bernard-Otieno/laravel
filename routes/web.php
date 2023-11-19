@@ -49,5 +49,10 @@ Route::get('/apply', function () {
 })->name('apply');
 Route::post('/account', [AuthManager::class, 'createBankAccount'])->name('account');
 
+Route::get('/success_page', function () {
+    return view('success_page'); // Adjust this to load your success page
+})->name('success_page');
+
+
 
 

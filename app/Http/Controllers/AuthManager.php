@@ -208,6 +208,8 @@ class AuthManager extends Controller
     }
     function paymentPost(Request $request){
        
+        $type = '2'; 
+        //in the model we changed the different kinds of transactions to numerals...
         $user = Auth::user();
 
             if ($user) {
@@ -216,7 +218,6 @@ class AuthManager extends Controller
                 // Fetch account details using the $accountId or any other field you have
             } 
 
-            dd($id);
            
             // Get data from the form (sender_account, recipient_account, amount)
             $senderAccount =DB::table('accounts')
@@ -235,17 +236,57 @@ class AuthManager extends Controller
     
             // Update balances in the database
             DB::table('accounts')->where('Account_no', $senderAccount)->update(['Amount' => $senderNewBalance]);
-            DB::table('accounts')->where('account_number', $recipientAccount)->update(['Amount' => $recipientNewBalance]);
+            DB::table('accounts')->where('Account_no', $recipientAccount)->update(['Amount' => $recipientNewBalance]);
 
-            dd($senderOldBalance,$recipientOldBalance,$senderNewBalance,$recipientNewBalance);
     
-            // Pass values back to the frontend
-            return response()->json([
+            // // Pass values back to the frontend
+            // return response()->json([
+            //     'type' => $type,
+            //     'amount'=> $amount,
+            //     'sender_old_balance' => $senderOldBalance,
+            //     'sender_new_balance' => $senderNewBalance,
+            //     'recipient_old_balance' => $recipientOldBalance,
+            //     'recipient_new_balance' => $recipientNewBalance,
+            // ]);
+            $apiUrl = 'http://127.0.0.1:5000/prediction'; 
+                        // Prepare data to be sent to the API
+                $dataToSend = [
+                'type' => $type,
+                'amount'=> $amount,
                 'sender_old_balance' => $senderOldBalance,
                 'sender_new_balance' => $senderNewBalance,
                 'recipient_old_balance' => $recipientOldBalance,
                 'recipient_new_balance' => $recipientNewBalance,
-            ]);
+            ];
+            // Make a POST request to the Flask API
+                $client = new \GuzzleHttp\Client();
+                $response = $client->post($apiUrl, [
+                    'json' => $dataToSend
+                ]);
+                // Handle the response from the API
+    if ($response->getStatusCode() === 200) {
+       
+        $responseData = json_decode($response->getBody(), true);
+        // Check the value returned by the API
+        // Adjust this based on the actual API response structure
+
+        if ($responseData == 0) {
+            // Redirect to success page
+            return redirect()->route('success_page');
+
+
+
+            
+        } else {
+            // Handle unsuccessful transaction (fraudulent)
+            // You might show an error message or perform other actions
+            return response()->json(['error' => 'Fraudulent transaction detected']);
+        }
+        } else {
+            // Handle API request failure
+            return response()->json(['error' => 'Failed to communicate with the API'], $response->getStatusCode());
+        }
+
 
         
         }
