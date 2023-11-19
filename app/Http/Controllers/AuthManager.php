@@ -208,7 +208,7 @@ class AuthManager extends Controller
     }
     function paymentPost(Request $request){
        
-        $type = '2'; 
+        $type = ''; 
         //in the model we changed the different kinds of transactions to numerals...
         $user = Auth::user();
 
@@ -217,7 +217,7 @@ class AuthManager extends Controller
                 $id = $user->id;
                 // Fetch account details using the $accountId or any other field you have
             } 
-
+            
            
             // Get data from the form (sender_account, recipient_account, amount)
             $senderAccount =DB::table('accounts')
@@ -225,25 +225,24 @@ class AuthManager extends Controller
             ->value('Account_no');
             $recipientAccount = $request->input('recipient_account');
             $amount = $request->input('amount');
-    
-            // Fetch old balances from the database
             $senderOldBalance = DB::table('accounts')->where('Account_no', $senderAccount)->value('Amount');
+                        // Determine $type based on the user's account number
+            if ($senderAccount == $recipientAccount) { 
+                $type = '5'; // Set $type based on the account number condition
+                //3 for cash in
+
+                      // Fetch old balances from the database
+           
             $recipientOldBalance = DB::table('accounts')->where('Account_no', $recipientAccount)->value('Amount');
     
             // Calculate new balances
             $senderNewBalance = $senderOldBalance - $amount;
             $recipientNewBalance = $recipientOldBalance + $amount;
-    
+            // if (!$amount <= $senderOldBalance) {
+
+            //     return redirect()->back()->with('error', 'Insufficient balance. Please enter a valid amount.');
+            // }
            
-            // // Pass values back to the frontend
-            // return response()->json([
-            //     'type' => $type,
-            //     'amount'=> $amount,
-            //     'sender_old_balance' => $senderOldBalance,
-            //     'sender_new_balance' => $senderNewBalance,
-            //     'recipient_old_balance' => $recipientOldBalance,
-            //     'recipient_new_balance' => $recipientNewBalance,
-            // ]);
             $apiUrl = 'http://127.0.0.1:5000/prediction'; 
                         // Prepare data to be sent to the API
                 $dataToSend = [
@@ -299,6 +298,90 @@ class AuthManager extends Controller
             return response()->json(['error' => 'Failed to communicate with the API'], $response->getStatusCode());
         }
 
+
+
+
+
+            } else
+            {$type = '2';
+            
+            // Fetch old balances from the database
+           
+            $recipientOldBalance = DB::table('accounts')->where('Account_no', $recipientAccount)->value('Amount');
+    
+            // Calculate new balances
+            $senderNewBalance = $senderOldBalance - $amount;
+            $recipientNewBalance = $recipientOldBalance + $amount;
+            // if ($amount > $senderOldBalance) {
+
+            //     return redirect()->back()->with('error', 'Insufficient balance. Please enter a valid amount.');
+            // }
+           
+            $apiUrl = 'http://127.0.0.1:5000/prediction'; 
+                        // Prepare data to be sent to the API
+                $dataToSend = [
+                'type' => $type,
+                'amount'=> $amount,
+                'sender_old_balance' => $senderOldBalance,
+                'sender_new_balance' => $senderNewBalance,
+                'recipient_old_balance' => $recipientOldBalance,
+                'recipient_new_balance' => $recipientNewBalance,
+            ];
+            // Make a POST request to the Flask API
+                $client = new \GuzzleHttp\Client();
+                $response = $client->post($apiUrl, [
+                    'json' => $dataToSend
+                ]);
+                // Handle the response from the API
+    if ($response->getStatusCode() === 200) {
+       
+        $responseData = json_decode($response->getBody(), true);
+        // Check the value returned by the API
+        // Adjust this based on the actual API response structure
+
+        if ($responseData == 0) {
+            // Redirect to success page
+             // Update balances in the database
+             DB::table('accounts')->where('Account_no', $senderAccount)->update(['Amount' => $senderNewBalance]);
+             DB::table('accounts')->where('Account_no', $recipientAccount)->update(['Amount' => $recipientNewBalance]);
+             $senderCard =DB::table('accounts')
+            ->where('Customer_id',$id)
+            ->value('credit_card_id');
+            $RecipientCard =DB::table('accounts')
+            ->where('Account_no',$recipientAccount)
+            ->value('credit_card_id');
+            $transactionData = [
+                'card_id'=>$senderCard,
+                'card_no' => $senderAccount,
+                'beneficiary_no' => $RecipientCard,
+                'Amount' => $amount,
+                'created_at' => now(), // Set the created_at timestamp if necessary
+                'updated_at' => now(), // Set the updated_at timestamp
+            ];
+            DB::table('transaction')->insert($transactionData);
+
+            return redirect()->route('success_page');
+
+        } else {
+            // Handle unsuccessful transaction (fraudulent)
+            // You might show an error message or perform other actions
+            return response()->json(['error' => 'Fraudulent transaction detected']);
+        }
+        } else {
+            // Handle API request failure
+            return response()->json(['error' => 'Failed to communicate with the API'], $response->getStatusCode());
+        }
+
+            
+            }//2 for payment}
+                
+            // if (!$amount <= $senderOldBalance) {
+
+            //         return redirect()->back()->with('error', 'Insufficient balance. Please enter a valid amount.');
+            //     }
+            
+    
+            
 
         
         }

@@ -49,3 +49,5 @@ api.add_resource(Prediction, '/prediction')  # Define the endpoint for predictio
 
 if __name__ == '__main__':
     app.run(debug=True)
+#df.replace(to_replace = ['PAYMENT', 'TRANSFER', 'CASH_OUT', 'DEBIT', 'CASH_IN'], 
+# value = [2,4,1,5,3],inplace = True)
