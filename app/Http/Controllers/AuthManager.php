@@ -363,8 +363,16 @@ class AuthManager extends Controller
             return redirect()->route('success_page');
 
         } else {
-            // Handle unsuccessful transaction (fraudulent)
-            // You might show an error message or perform other actions
+           // Example of storing fraudulent transaction details using query builder
+            DB::table('fraudulent_transactions')->insert([
+                'sender_account' => $senderAccount,
+                'recipient_account' => $recipientAccount,
+                'amount' => $amount,
+                'created_at' => now(),
+                'updated_at' => now(),
+    // Add other columns as necessary
+]);
+
             return response()->json(['error' => 'Fraudulent transaction detected']);
         }
         } else {
