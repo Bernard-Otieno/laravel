@@ -53,6 +53,10 @@ Route::get('/success_page', function () {
     return view('success_page'); // Adjust this to load your success page
 })->name('success_page');
 
+Route::get('/index', function () {
+    return view('index'); // Adjust this to load your success page
+})->name('index');
+
 
 
 

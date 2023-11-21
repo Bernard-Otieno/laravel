@@ -2,19 +2,42 @@
 @section('title','Loans')
 @section('content')
 <style>
-        /* Custom CSS to center the form horizontally */
-        .form-container {
-            display: flex;
-            justify-content: center;
-        }
-        .custom-form {
-            width: 80%; /* Adjust the width as needed */
-        }
-    </style>
-<div class="container mt-5">
-    <div class="form-container">
+    /* Custom CSS to center the form horizontally */
+    .form-container {
+        /* ... (existing styles) */
+    }
 
-   
+    .custom-form {
+        /* ... (existing styles) */
+    }
+
+    /* Adjust font sizes for form elements and headings */
+    .custom-form h1 {
+        font-size: 24px; /* Adjust the font size for the main heading */
+        margin: 20px 0; /* Add margin for better spacing */
+    }
+
+    .custom-form label {
+        font-size: 16px; /* Adjust the font size for labels */
+    }
+
+    .custom-form input[type="text"],
+    .custom-form input[type="email"],
+    .custom-form input[type="number"],
+    .custom-form textarea {
+        font-size: 14px; /* Adjust the font size for input fields and textarea */
+    }
+
+    .custom-form button {
+        font-size: 16px; /* Adjust the font size for the submit button */
+    }
+</style>
+
+
+
+
+<div class="container mt-5">
+    <div class="form-container">   
     <form class="custom-form">
         <div class="form-row">
             <div class="form-group col-md-6"> 

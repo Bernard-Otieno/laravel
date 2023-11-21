@@ -18,6 +18,27 @@
         border-radius: 5px; /* Optional: Add border radius */
         background-color: #f9f9f9; /* Optional: Add background color */
     }
+    /* Adjust label styles for consistency */
+    .form-label {
+        margin-bottom: 8px; /* Add space below labels */
+        font-weight: bold; /* Make labels bold */
+    }
+    /* Adjust input field styles for consistency */
+    .form-control {
+        width: 100%; /* Occupy full width of the container */
+        padding: 8px; /* Adjust padding for input fields */
+        border-radius: 3px; /* Add slight border radius */
+        border: 1px solid #ccc; /* Add border */
+        margin-bottom: 12px; /* Add space between input fields */
+       
+    } 
+    #accountNumber {
+        width: calc(100% - 22px); /* Adjust width for account number field */
+        padding: 8px; /* Adjust padding for account number field */
+        border-radius: 1px; /* Add slight border radius */
+        border: 1px solid #ccc; /* Add border */
+        margin-bottom: 1px; /* Add space between input fields */
+    }
 </style>
 
 <div class="container-fluid">
@@ -29,8 +50,8 @@
                 <div class="mb-3">
                    <!-- Display the account details -->
                 <div>
-                    <label for="accountNumber">Account Number:</label>
-                    <input type="text" id="accountNumber" name="accountNumber" value="{{ $userAccount }}" readonly>
+                    <h5 for="accountNumber">Account Number:</h5>
+                    <input type="text" id="accountNumber" name="accountNumber" value="{{$userAccount}}" readonly>
                 </div>
 
                 </div>
@@ -43,7 +64,7 @@
 
 
                 <div class="mb-3">
-                <p>Your Total:{{ $userTotal }}</p>
+                <h5>Your Total:{{ $userTotal }}</h5>
                     <label for="amount" class="form-label">Amount</label>
                     <input type="text" class="form-control" id="amount" name="amount" required>
                 </div>

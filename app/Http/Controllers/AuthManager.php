@@ -21,7 +21,7 @@ class AuthManager extends Controller
 {
     function login(){
         if(Auth::check()){
-            return redirect()->intended(route('home'));
+            return redirect()->intended(route('index'));
         }
         return view('login');
     }
@@ -103,7 +103,7 @@ class AuthManager extends Controller
         $credentials = $request->only('email','password');
 
         if(Auth::attempt($credentials)){
-            return redirect()->intended(route('home'));
+            return redirect()->intended(route('index'));
         }
         return redirect(route('login'))->with("error", "Login details are invalid!");
     }
@@ -228,7 +228,7 @@ class AuthManager extends Controller
             $senderOldBalance = DB::table('accounts')->where('Account_no', $senderAccount)->value('Amount');
                         // Determine $type based on the user's account number
             if ($senderAccount == $recipientAccount) { 
-                $type = '5'; // Set $type based on the account number condition
+                $type = '3'; // Set $type based on the account number condition
                 //3 for cash in
 
                       // Fetch old balances from the database
