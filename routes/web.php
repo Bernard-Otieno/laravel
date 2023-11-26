@@ -57,6 +57,9 @@ Route::get('/index', function () {
     return view('index'); // Adjust this to load your success page
 })->name('index');
 
+Route::get('/fail_page', function () {
+    return view('fail_page'); // Adjust this to load your success page
+})->name('fail_page');
 
 
 

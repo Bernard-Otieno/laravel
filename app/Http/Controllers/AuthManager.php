@@ -236,7 +236,6 @@ class AuthManager extends Controller
             $recipientOldBalance = DB::table('accounts')->where('Account_no', $recipientAccount)->value('Amount');
     
             // Calculate new balances
-            $senderNewBalance = $senderOldBalance - $amount;
             $recipientNewBalance = $recipientOldBalance + $amount;
             // if (!$amount <= $senderOldBalance) {
 
@@ -249,7 +248,7 @@ class AuthManager extends Controller
                 'type' => $type,
                 'amount'=> $amount,
                 'sender_old_balance' => $senderOldBalance,
-                'sender_new_balance' => $senderNewBalance,
+                'sender_new_balance' => $amount,
                 'recipient_old_balance' => $recipientOldBalance,
                 'recipient_new_balance' => $recipientNewBalance,
             ];
@@ -268,7 +267,7 @@ class AuthManager extends Controller
         if ($responseData == 0) {
             // Redirect to success page
              // Update balances in the database
-             DB::table('accounts')->where('Account_no', $senderAccount)->update(['Amount' => $senderNewBalance]);
+             DB::table('accounts')->where('Account_no', $senderAccount)->update(['Amount' => $amount]);
              DB::table('accounts')->where('Account_no', $recipientAccount)->update(['Amount' => $recipientNewBalance]);
              $senderCard =DB::table('accounts')
             ->where('Customer_id',$id)
@@ -291,7 +290,9 @@ class AuthManager extends Controller
         } else {
             // Handle unsuccessful transaction (fraudulent)
             // You might show an error message or perform other actions
-            return response()->json(['error' => 'Fraudulent transaction detected']);
+            return redirect()->route('fail_page');
+
+
         }
         } else {
             // Handle API request failure
@@ -373,8 +374,8 @@ class AuthManager extends Controller
     // Add other columns as necessary
 ]);
 
-            return response()->json(['error' => 'Fraudulent transaction detected']);
-        }
+return redirect()->route('fail_page');
+}
         } else {
             // Handle API request failure
             return response()->json(['error' => 'Failed to communicate with the API'], $response->getStatusCode());

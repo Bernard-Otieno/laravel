@@ -7,12 +7,13 @@
     <div class="content-container text-center">
         <div class="account-info mb-4">
             <h4>Your Account Number: <span>{{$userAccount}}</span></h4>
-            <h5>To Deposit, place your own account number as recipient account</h5>
+            <h5>To Deposit, place your own account number as recipient account</h5>         
         </div>
 
         <div class="col-md-6 col-sm-12">
             <form method="POST" action="{{ route('payment.post') }}" class="custom-form">
                 @csrf
+                <h5>Maximum Deposit: 999,999,999</h5>
 
                 <div class="mb-3">
                     <label for="recipientAccount" class="form-label">Recipient Account</label>
@@ -37,20 +38,20 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 100vh;
+    height: fit-content;
 }
 
 .account-info {
     background-color: #f9f9f9;
-    padding: 15px;
+    padding: 10px;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    margin-top: 10%;
 }
 
 .account-info h4 {
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 0%;
 }
 
 .account-info span {
@@ -64,7 +65,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
-    margin-top: 20px;
+    margin-top: 5%;
 }
 
 </style>
