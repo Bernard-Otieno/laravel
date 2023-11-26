@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthManager;
+use App\Http\Controllers\ChartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,13 +54,17 @@ Route::get('/success_page', function () {
     return view('success_page'); // Adjust this to load your success page
 })->name('success_page');
 
-Route::get('/index', function () {
-    return view('index'); // Adjust this to load your success page
-})->name('index');
+// Route::get('/index', function () {
+//     return view('index'); // Adjust this to load your success page
+// })->name('index');
 
 Route::get('/fail_page', function () {
     return view('fail_page'); // Adjust this to load your success page
 })->name('fail_page');
+
+
+Route::get('/index', [ChartController::class, 'chart1Data'])->name('index');
+// Route::get('/index', 'ChartController@chart2Data');
 
 
 
