@@ -304,7 +304,7 @@ class AuthManager extends Controller
 
 
             } else
-            {$type = '2';
+            {   $type = '2';
             
             // Fetch old balances from the database
            
@@ -345,6 +345,8 @@ class AuthManager extends Controller
              // Update balances in the database
              DB::table('accounts')->where('Account_no', $senderAccount)->update(['Amount' => $senderNewBalance]);
              DB::table('accounts')->where('Account_no', $recipientAccount)->update(['Amount' => $recipientNewBalance]);
+            
+
              $senderCard =DB::table('accounts')
             ->where('Customer_id',$id)
             ->value('credit_card_id');

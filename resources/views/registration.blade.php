@@ -22,7 +22,7 @@
 </div>
  
 
-    <form action="{{route('registration.post')}}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px;">
+    <form action="{{route('registration.post')}}" method="POST" class="ms-auto me-auto" style="width: 500px; margin-top: 15%;">
     @csrf
     <div class="mb-3">
         <label class="form-label">First Name</label>
