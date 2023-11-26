@@ -2,37 +2,23 @@
 @section('title','My home')
 @section('content')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-    .navbar {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background-color: blue;
-        z-index: 1000;
-        height: 50px; /* Adjust the height as per your design */
-    }
 
-    .chart-container {
-        position: relative;
-        margin-top: 50px; /* Adjust based on navbar height */
-        white-space: nowrap; /* Prevents charts from wrapping */
-        overflow-x: auto; /* Allows horizontal scrolling if needed */
-    }
 
-    .chart {
-        display: inline-block;
-        width: 400px; /* Adjust the width of each chart */
-        margin-right: 20px; /* Adjust spacing between charts */
-        vertical-align: top; /* Aligns charts at the top */
-    }
-</style>
-<div class="container mt-5">
-    <div class="row justify-content-around">
-        <div class="col-md-6 offset-md-1">
-            <canvas id="lineChart1" width="300" height="200"></canvas>
-        </div>
-        <div class="col-md-6">
-            <canvas id="lineChart2" width="300" height="200"></canvas>
+
+
+
+
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="content-container text-center">
+            <div class="container mt-5">
+                <div class="row justify-content-around">
+                    <div class="col-md-6 offset-md-1">
+                        <canvas id="lineChart1" width="300" height="200"></canvas>
+                    </div>
+                    <div class="col-md-6">
+                        <canvas id="lineChart2" width="300" height="200"></canvas>
+                        </div>
+                    </div>
         </div>
     </div>
 </div>

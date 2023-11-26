@@ -33,7 +33,12 @@
 <style>
 /* Custom CSS for navbar */
 .navbar {
-    background-color: #333; /* Change background color */
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Change background color */
 }
 
 .navbar-brand,

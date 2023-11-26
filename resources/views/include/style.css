@@ -1,0 +1,110 @@
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.account-info {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.account-info h4 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.account-info span {
+    font-weight: bold;
+    color: #333;
+}
+
+.custom-form {
+    width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+}
+/* Custom CSS for navbar */
+.navbar {
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Change background color */
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: white; /* Set text color */
+}
+
+.navbar-brand:hover,
+.navbar-nav .nav-link:hover {
+    color: lightgray; /* Change text color on hover */
+}
+/* Style for the sidebar */
+.sidebar {
+    position: fixed;
+    top: 70px; /* Adjust based on the height of the top navbar */
+    left: 0;
+    bottom: 0;
+    width: 200px; /* Adjust the width as needed */
+    background-color: #000; /* Set sidebar background color */
+    /* Additional styling for the sidebar */
+}
+/* Style for the list items */
+.navbar-nav {
+    list-style: none; /* Remove default list styles */
+    margin: 0;
+    padding: 0;
+}
+
+/* Style for individual navbar items */
+.nav-item {
+    margin-bottom: 10px; /* Adjust spacing between items */
+}
+
+/* Style for the navbar links */
+.nav-link {
+    display: block;
+    padding: 10px;
+    color: #fff; /* Set text color */
+    text-decoration: none; /* Remove underline */
+    font-size: 16px; /* Adjust font size */
+}
+
+/* Hover effect for links */
+.nav-link:hover {
+    background-color: #555; /* Change background color on hover */
+}
+
+.chart-container {
+    position: relative;
+    margin-top: 50px; /* Adjust based on navbar height */
+    white-space: nowrap; /* Prevents charts from wrapping */
+    overflow-x: auto; /* Allows horizontal scrolling if needed */
+}
+
+.chart {
+    display: inline-block;
+    width: 400px; /* Adjust the width of each chart */
+    margin-right: 20px; /* Adjust spacing between charts */
+    vertical-align: top; /* Aligns charts at the top */
+}
+table th {
+    text-align: center; 
+ }
+ 
+ .table {
+    margin: auto;
+    width: 80% !important; 
+ }
