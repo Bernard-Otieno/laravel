@@ -207,7 +207,11 @@ class AuthManager extends Controller
       return redirect()->intended(route('login'));
     }
     function paymentPost(Request $request){
-       
+            // Get the current time
+        $currentDateTime = Carbon::now();
+
+        // Manipulate time to include 'step' parameter (e.g., adding 1 hour)
+        $nextStep = $currentDateTime->addHours(1)->hour;
         $type = ''; 
         //in the model we changed the different kinds of transactions to numerals...
         $user = Auth::user();
@@ -217,14 +221,20 @@ class AuthManager extends Controller
                 $id = $user->id;
                 // Fetch account details using the $accountId or any other field you have
             } 
-            
-           
             // Get data from the form (sender_account, recipient_account, amount)
             $senderAccount =DB::table('accounts')
             ->where('Customer_id',$id)
             ->value('Account_no');
-            $recipientAccount = $request->input('recipient_account');
-            $amount = $request->input('amount');
+            $validatedData = $request->validate([
+                'recipient_account' => 'required|exists:accounts,Account_no',
+                'amount' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+                'amount' => 'required|numeric|lte:999999999', // Only allow digits with up to two decimal places
+            ], [
+                'amount.regex' => 'The amount must be a valid number with up to two decimal places.',
+            ]);
+            // Extract validated data
+            $recipientAccount = $validatedData['recipient_account'];
+            $amount = $validatedData['amount'];
             $senderOldBalance = DB::table('accounts')->where('Account_no', $senderAccount)->value('Amount');
                         // Determine $type based on the user's account number
             if ($senderAccount == $recipientAccount) { 
@@ -245,6 +255,7 @@ class AuthManager extends Controller
             $apiUrl = 'http://127.0.0.1:5000/prediction'; 
                         // Prepare data to be sent to the API
                 $dataToSend = [
+                'step'=> $nextStep,
                 'type' => $type,
                 'amount'=> $amount,
                 'sender_old_balance' => $senderOldBalance,
@@ -298,11 +309,6 @@ class AuthManager extends Controller
             // Handle API request failure
             return response()->json(['error' => 'Failed to communicate with the API'], $response->getStatusCode());
         }
-
-
-
-
-
             } else
             {   $type = '2';
             
@@ -321,6 +327,7 @@ class AuthManager extends Controller
             $apiUrl = 'http://127.0.0.1:5000/prediction'; 
                         // Prepare data to be sent to the API
                 $dataToSend = [
+                'step'=> $nextStep,
                 'type' => $type,
                 'amount'=> $amount,
                 'sender_old_balance' => $senderOldBalance,

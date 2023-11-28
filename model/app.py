@@ -13,6 +13,7 @@ class Prediction(Resource):
         data = request.get_json()
 
         # Extract the values from the JSON payload
+        step_val = data.get('step')
         type_val = data.get('type')
         amount = data.get('amount')
         old_balance_org = data.get('sender_old_balance')
@@ -21,18 +22,18 @@ class Prediction(Resource):
         recipient_new_balance = data.get('recipient_new_balance')
 
             # Check if any value is None before converting to integers
-        if None in (type_val, amount, old_balance_org, new_balance_orig, recipient_old_balance, recipient_new_balance):
+        if None in (step_val, type_val, amount, old_balance_org, new_balance_orig, recipient_old_balance, recipient_new_balance):
             return "One or more required fields are missing or contain None values", 400
 
         # Now convert to integers
         features = [
-            int(type_val), int(amount), int(old_balance_org), int(new_balance_orig),
+            int(step_val), int(type_val), int(amount), int(old_balance_org), int(new_balance_orig),
             int(recipient_old_balance), int(recipient_new_balance)
         ]
 
         # Create a DataFrame with the input features
         df = pd.DataFrame([features], columns=[
-            'type', 'amount', 'oldbalanceOrg', 'newbalanceOrig',
+            'step','type', 'amount', 'oldbalanceOrg', 'newbalanceOrig',
             'oldbalanceDest', 'newbalanceDest'
         ])
 

@@ -18,12 +18,19 @@
                 <div class="mb-3">
                     <label for="recipientAccount" class="form-label">Recipient Account</label>
                     <input type="text" class="form-control" id="recipientAccount" name="recipient_account" required>
+                    @error('recipient_account')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <h5>Your Total:{{ $userTotal }}</h5>
                     <label for="amount" class="form-label">Amount</label>
                     <input type="text" class="form-control" id="amount" name="amount" required>
+                    @error('amount')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
                 </div>
 
                 <button type="submit" class="btn btn-primary">Perform Transaction</button>

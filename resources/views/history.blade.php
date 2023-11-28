@@ -10,8 +10,7 @@
         <table class="table table-bordered table-striped text-center"  style="width: max-content;">
         <thead>
             <tr>
-            <th scope="col">Card Number</th>
-            <th scope="col">Beneficiary Number</th>
+            <th scope="col">Beneficiary Card Number</th>
             <th scope="col">Amount</th>
             <th scope="col">Date</th>
             </tr>
@@ -19,7 +18,6 @@
         <tbody>
         @foreach($history as $record)
             <tr>
-            <th scope="row">{{ $record->card_no }}</th>
             <td>{{ $record->beneficiary_no }}</td>
             <td>{{ $record->Amount }}</td>
             <td>{{ $record->created_at }}</td>
