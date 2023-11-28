@@ -2,20 +2,35 @@
 @section('title','My home')
 @section('content')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <div class="container d-flex justify-content-center align-items-center vh-100" style="margin-top: 200px;">
-        <div class="content-container text-center">
-            <div class="container mt-5">
-                <div class="row justify-content-around">
-                    <div class="col-md-6 offset-md-1">
-                        <canvas id="myChart" width="400" height="400"></canvas>
-                    </div>
-                    <div class="col-md-6"style="margin-top: 70px;">
-                        <canvas id="pieChart" width="400" height="400"></canvas>
+    <div class="container d-flex justify-content-center align-items-center vh-100" style="margin-top: 2%;">
+    <div class="content-container text-center">
+        <div class="container mt-5">
+            <div class="row justify-content-end">
+                <div class="col-md-6 order-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">TRANSACTION AMOUNTS</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="myChart" width="400" height="400"></canvas>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-6 order-md-1">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">TRANSACTIONS</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="pieChart" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 
 <script>//bar chart
    // Your retrieved chartData from the controller
