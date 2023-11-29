@@ -22,4 +22,16 @@ class HomeController extends Controller
                 
             });
     }
+
+    public function plot()
+    {
+        return Admin::content(function (Content $content) {
+    
+            $content->header('chart');
+            $content->description('.....');
+    
+            $content->body(view('admin.charts.bar'));
+        });
+    }
+    
 }

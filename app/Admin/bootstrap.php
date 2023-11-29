@@ -1,4 +1,6 @@
 <?php
+use OpenAdmin\Admin\Facades\Admin;
+Admin::js('/vendor/chartjs/dist/Chart.min.js');
 
 /**
  * Open-admin - admin builder based on Laravel.

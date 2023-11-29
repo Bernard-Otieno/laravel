@@ -43,6 +43,9 @@ class ChartController extends Controller
                         
             return view('index', compact('chartData', 'labels','values'));
             }
+            
+
+
 
    
 }
