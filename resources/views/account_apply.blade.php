@@ -17,6 +17,7 @@
         Applying for an account with us means you'll have access to various financial services and benefits.
         Please fill out the form below to apply for an account.
     </p>
+    <strong>To carry out transactions, first receive a credit card from the administrator.</strong>
 
     <form action="{{route('account')}}" method="post">
         @csrf <!-- Laravel Blade syntax for CSRF protection -->
