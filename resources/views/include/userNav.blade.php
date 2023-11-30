@@ -17,8 +17,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('2fa.setup')}}" class="nav-link text-white">
-                            <i class="bi bi-shield-lock-fill"></i> <span class="ms-1 d-none d-sm-inline">2FA setup</span>
+                        <a href="{{route('loans.history')}}" class="nav-link text-white">
+                            <i class="bi bi-shield-lock-fill"></i> <span class="ms-1 d-none d-sm-inline">My Loan History</span>
                         </a>
                     </li>
                 </ul>

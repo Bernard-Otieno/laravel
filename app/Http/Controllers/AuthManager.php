@@ -37,6 +37,7 @@ class AuthManager extends Controller
         }
        return redirect()->intended(route('login'));
     }
+    
     function transaction(){
         if(Auth::check()){
              return view('transaction');

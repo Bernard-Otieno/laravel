@@ -49,9 +49,20 @@ class LoanController extends Controller
              ]);
              return redirect()->route('loans')->with('success', 'Your loan application was successful!');
         }
-
-
-
-
     }
+
+         function loanHistory(){
+                $id=Auth::id();
+
+                $pin=DB::table('accounts')
+                ->where('Customer_id',$id)
+                ->value('Account_id');
+
+                $history = DB::table('loans_applicantions')
+                            ->where('account_id',$pin)
+                            ->get();
+
+            return view('loansHistory', ['history'=>$history]);
+
+            }
 }

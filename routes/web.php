@@ -29,6 +29,7 @@ Route::post('/registration', [AuthManager::class, 'registrationPost'])->name('re
 Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 
 Route::get('/loans', [AuthManager::class, 'loans'])->name('loans');
+Route::get('/loan-history', [LoanController::class, 'loanHistory'])->name('loans.history');
 
 Route::get('/transaction', [AuthManager::class, 'transaction'])->name('transaction');
 Route::post('/transaction', [AuthManager::class, 'transactionPost'])->name('transaction.post');
