@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use App\Models\AdminUser;
+use Illuminate\Support\Facades\Session;
 
 
 class analyticsController extends Controller
@@ -73,7 +74,7 @@ class analyticsController extends Controller
     public function cardStatistics(){
          // Retrieve credit card data for statistics
          $totalCards = DB::table('credit_card')->count();
-         $totalAmount = DB::table('credit_card')->sum('Amount');
+         $totalAmount = DB::table('accounts')->sum('Amount');
          $averageAmount = $totalAmount / max($totalCards, 1);
  
          // Retrieve specific data points for analysis (e.g., card numbers, CVV, etc.)
@@ -81,12 +82,15 @@ class analyticsController extends Controller
  
           // Retrieve card numbers and amounts from the database
             $cardStats = DB::table('credit_card')
-            ->selectRaw('card_no AS cardNumbers, Amount AS cardAmounts')
+            ->selectRaw('card_no AS cardNumbers')
+            ->get();
+            $cardStats2 = DB::table('accounts')
+            ->selectRaw('Amount AS cardAmounts')
             ->get();
 
         // Extract card numbers and amounts
         $cardNumbers = $cardStats->pluck('cardNumbers')->toArray();
-        $cardAmounts = $cardStats->pluck('cardAmounts')->toArray();
+        $cardAmounts = $cardStats2->pluck('cardAmounts')->toArray();
 
          return view('card_statistics', [
             'cardNumbers' => $cardNumbers,
@@ -128,8 +132,13 @@ class analyticsController extends Controller
         ]);
     }
     public function logout(Request $request){
-        $request->session()->forget('user'); // Assuming 'user' is the key for the logged-in user data
-        $request->session()->flush(); // Clears all session data
+        Session::flush();
+                // To retrieve 'user' data from the session
+        $user = Session::get('user');
+
+        // To forget 'user' data from the session
+        Session::forget('user');
+        return redirect(route('login'));
     
     return redirect('/login');
     }

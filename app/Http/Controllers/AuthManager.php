@@ -353,7 +353,7 @@ class AuthManager extends Controller
              // Update balances in the database
              DB::table('accounts')->where('Account_no', $senderAccount)->update(['Amount' => $senderNewBalance]);
              DB::table('accounts')->where('Account_no', $recipientAccount)->update(['Amount' => $recipientNewBalance]);
-            
+             
 
              $senderCard =DB::table('accounts')
             ->where('Customer_id',$id)

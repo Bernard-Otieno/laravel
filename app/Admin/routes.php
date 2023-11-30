@@ -2,6 +2,7 @@
 
 use App\Admin\Controllers\Loan_application;
 use App\Admin\Controllers\User_controller1;
+use App\Http\Controllers\analyticsController;
 use App\Models\User;
 use Illuminate\Routing\Router;
 
