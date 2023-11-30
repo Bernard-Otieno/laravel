@@ -8,7 +8,7 @@
         </li>
                     <li class="nav-item">
                         <a href="{{route('payment')}}" class="nav-link text-white">
-                            <i class="bi bi-credit-card"></i> <span class="ms-1 d-none d-sm-inline">Make a Payment</span>
+                            <i class="bi bi-credit-card"></i> <span class="ms-1 d-none d-sm-inline">Transact</span>
                         </a>
                     </li>
                     <li class="nav-item">

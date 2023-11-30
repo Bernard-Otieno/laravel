@@ -1,8 +1,12 @@
 @extends('layout') 
 @section('title','My home')
 @section('content')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <div class="container d-flex justify-content-center align-items-center vh-100" style="margin-top: 2%;">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="container d-flex justify-content-center align-items-center vh-50" style="margin-top: 5%;">
+<h2>Your current total amount is: </h2>
+<h2> {{ $myAmount}} </h2>
+</div>
+<div class="container d-flex justify-content-center align-items-center vh-100" style="margin-top: 2%;">
     <div class="content-container text-center">
         <div class="container mt-5">
             <div class="row justify-content-end">
@@ -32,33 +36,36 @@
 </div>
 
 
-<script>//bar chart
-   // Your retrieved chartData from the controller
-   var chartData = {!! json_encode($chartData) !!};
 
-// Extract data from chartData to plot the chart using Chart.js
-var labels = chartData.map(data => data.created_at);
-var amounts = chartData.map(data => data.Amount);
 
-// Create the chart using Chart.js
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: 'Transaction Amounts',
-            data: amounts,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        // Add any additional options for your chart here
-    }
-});
+<script>
+    var chartData = {!! json_encode($chartData) !!};
+    var labels = chartData.map(data => data.created_at);
+    var amounts = chartData.map(data => data.Amount);
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Transaction Amounts',
+                data: amounts,
+                fill: false,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 </script>
+
 
 
 

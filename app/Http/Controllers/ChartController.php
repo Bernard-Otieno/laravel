@@ -24,6 +24,10 @@ class ChartController extends Controller
             ->where('Customer_id', $user->id) 
             ->value('credit_card_id');
 
+            $myAmount=DB::table('accounts')
+            ->where('Customer_id', $user->id)
+            ->value('Amount'); 
+
             $chartData = DB::table('transaction')
             ->select('created_at', 'Amount')
             ->where('card_id', $cardData) // Assuming $cardData holds the card ID value
@@ -41,7 +45,7 @@ class ChartController extends Controller
                         $values = array_values($groupedData);
                         
                         
-            return view('index', compact('chartData', 'labels','values'));
+            return view('index', compact('chartData', 'labels','values','myAmount'));
             }
             
 
