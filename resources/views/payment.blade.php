@@ -1,72 +1,34 @@
 @extends('layout')
-
 @section('title', 'Perform Transaction')
-
 @section('content')
-<style>
-    /* Custom CSS to center the form horizontally */
-    .form-container {
-        display: flex;
-        justify-content: center;
-        align-items: center; /* Vertically align the form */
-        height: 100vh; /* Adjust the height for centering vertically */
-    }
-    .custom-form {
-        width: 400px; /* Adjust the width as needed */
-        padding: 20px; /* Add padding for better readability */
-        border: 1px solid #ccc; /* Optional: Add a border */
-        border-radius: 5px; /* Optional: Add border radius */
-        background-color: #f9f9f9; /* Optional: Add background color */
-    }
-    /* Adjust label styles for consistency */
-    .form-label {
-        margin-bottom: 8px; /* Add space below labels */
-        font-weight: bold; /* Make labels bold */
-    }
-    /* Adjust input field styles for consistency */
-    .form-control {
-        width: 100%; /* Occupy full width of the container */
-        padding: 8px; /* Adjust padding for input fields */
-        border-radius: 3px; /* Add slight border radius */
-        border: 1px solid #ccc; /* Add border */
-        margin-bottom: 12px; /* Add space between input fields */
-       
-    } 
-    #accountNumber {
-        width: calc(100% - 22px); /* Adjust width for account number field */
-        padding: 8px; /* Adjust padding for account number field */
-        border-radius: 1px; /* Add slight border radius */
-        border: 1px solid #ccc; /* Add border */
-        margin-bottom: 1px; /* Add space between input fields */
-    }
-</style>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="content-container text-center">
+        <div class="account-info mb-4">
+            <h4>Your Account Number: <span>{{$userAccount}}</span></h4>
+            <h5>To Deposit, place your own account number as recipient account</h5>         
+        </div>
 
-<div class="container-fluid">
-    <div class="row form-container">
         <div class="col-md-6 col-sm-12">
             <form method="POST" action="{{ route('payment.post') }}" class="custom-form">
                 @csrf
-
-                <div class="mb-3">
-                   <!-- Display the account details -->
-                <div>
-                    <h5 for="accountNumber">Account Number:</h5>
-                    <input type="text" id="accountNumber" name="accountNumber" value="{{$userAccount}}" readonly>
-                </div>
-
-                </div>
+                <h5>Maximum Deposit: 999,999,999</h5>
 
                 <div class="mb-3">
                     <label for="recipientAccount" class="form-label">Recipient Account</label>
                     <input type="text" class="form-control" id="recipientAccount" name="recipient_account" required>
+                    @error('recipient_account')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
-
-
                 <div class="mb-3">
-                <h5>Your Total:{{ $userTotal }}</h5>
+                    <h5>Your Total:{{ $userTotal }}</h5>
                     <label for="amount" class="form-label">Amount</label>
                     <input type="text" class="form-control" id="amount" name="amount" required>
+                    @error('amount')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
                 </div>
 
                 <button type="submit" class="btn btn-primary">Perform Transaction</button>
@@ -74,5 +36,43 @@
         </div>
     </div>
 </div>
+
+<style>
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.account-info {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-top: 10%;
+}
+
+.account-info h4 {
+    font-weight: bold;
+    margin-bottom: 0%;
+}
+
+.account-info span {
+    font-weight: bold;
+    color: #333;
+}
+
+.custom-form {
+    width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-top: 5%;
+}
+
+</style>
 
 @endsection

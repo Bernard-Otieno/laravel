@@ -1,10 +1,6 @@
 @extends('layout') 
 @section('title','login')
 @section('content')
-
-
-
-
 <div class="container" style="font-size: medium;">
     <div class="mt-5">
             @if($errors->any())
@@ -23,7 +19,7 @@
         @endif
     </div>
 
-    <form action="{{route('login.post')}}" method="post"  class="ms-auto me-auto mt-3" style="width: 500px;">
+    <form action="{{route('login.post')}}" method="post" class="ms-auto me-auto" style="width: 500px; margin-top: 15%;">
     @csrf
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>

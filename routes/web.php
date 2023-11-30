@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\analyticsController;
 use App\Http\Controllers\AuthManager;
+use App\Http\Controllers\ChartController;
+use App\Http\Controllers\LoanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +30,7 @@ Route::post('/registration', [AuthManager::class, 'registrationPost'])->name('re
 Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 
 Route::get('/loans', [AuthManager::class, 'loans'])->name('loans');
+Route::get('/loan-history', [LoanController::class, 'loanHistory'])->name('loans.history');
 
 Route::get('/transaction', [AuthManager::class, 'transaction'])->name('transaction');
 Route::post('/transaction', [AuthManager::class, 'transactionPost'])->name('transaction.post');
@@ -53,9 +57,25 @@ Route::get('/success_page', function () {
     return view('success_page'); // Adjust this to load your success page
 })->name('success_page');
 
-Route::get('/index', function () {
-    return view('index'); // Adjust this to load your success page
-})->name('index');
+// Route::get('/index', function () {
+//     return view('index'); // Adjust this to load your success page
+// })->name('index');
+
+Route::get('/fail_page', function () {
+    return view('fail_page'); // Adjust this to load your success page
+})->name('fail_page');
+
+
+Route::get('/index', [ChartController::class, 'chart1Data'])->name('index');
+Route::post('/loan_apply', [LoanController::class, 'loanPost'])->name('loan.post');
+
+Route::get('/analytics', [analyticsController::class, 'index'])->name('analytics.login');
+Route::post('/admin/analytics',[analyticsController::class, 'authenticateAdmin'] )->name('analytics.post');
+
+Route::get('/analytics/home', [analyticsController::class, 'accountStatistics'])->name('analytics.Home');
+Route::get('/analytics/credit_card', [analyticsController::class, 'cardStatistics'])->name('analytics.card');
+Route::get('/analytics/loan', [analyticsController::class, 'loanStatistics'])->name('analytics.loan');
+Route::get('/analytics/logout',  [analyticsController::class, 'logout'])->name('analytics.logout');
 
 
 

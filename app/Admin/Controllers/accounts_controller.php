@@ -51,7 +51,6 @@ class accounts_controller extends AdminController
         $show->field('credit_card_id', __('Credit card id'));
         $show->field('Customer_id', __('Customer id'));
         $show->field('Account_no', __('Account no'));
-        $show->field('Amount', __('Amount'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -68,9 +67,6 @@ class accounts_controller extends AdminController
         $form = new Form(new accounts());
 
         $form->number('credit_card_id', __('Credit card id'));
-        $form->number('Customer_id', __('Customer id'));
-        $form->number('Account_no', __('Account no'));
-        $form->number('Amount', __('Amount'));
 
         return $form;
     }
