@@ -7,17 +7,7 @@
             <form class="custom-form">
                 <h1 class="mt-5 mb-4 text-center">Loan Application Form</h1>
                 <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="John" required>
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" placeholder="Doe" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="johndoe@example.com" required>
-                </div>
+                    @csrf
                 <div class="form-group">
                     <label for="loanAmount">Loan Amount</label>
                     <input type="number" class="form-control" id="loanAmount" placeholder="Enter Loan Amount" required>
