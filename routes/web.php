@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\LoanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,6 +66,7 @@ Route::get('/fail_page', function () {
 
 Route::get('/index', [ChartController::class, 'chart1Data'])->name('index');
 // Route::get('/index', 'ChartController@chart2Data');
+Route::post('/loan_apply', [LoanController::class, 'loanPost'])->name('loan.post');
 
 
 

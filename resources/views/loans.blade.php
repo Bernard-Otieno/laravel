@@ -4,17 +4,26 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form class="custom-form">
+        @if(session('success'))
+                <div class="alert alert-success mb-3">{{ session('success') }}</div>
+             @endif
+            <form class="custom-form" method="POST" action="{{ route('loan.post') }}" class="custom-form">
                 <h1 class="mt-5 mb-4 text-center">Loan Application Form</h1>
                 <div class="form-group">
                     @csrf
                 <div class="form-group">
                     <label for="loanAmount">Loan Amount</label>
-                    <input type="number" class="form-control" id="loanAmount" placeholder="Enter Loan Amount" required>
+                    <input type="number" class="form-control" name="loanAmount" id="loanAmount" placeholder="Enter Loan Amount" required>
+                    @error('loanAmount')
+                            <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="loanPurpose">Loan Purpose</label>
-                    <textarea class="form-control" id="loanPurpose" rows="3" placeholder="Tell us the purpose of the loan" required></textarea>
+                    <textarea class="form-control" id="loanPurpose" name="loanPurpose" rows="3" placeholder="Tell us the purpose of the loan" required></textarea>
+                    @error('loanPurpose')
+                            <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Submit Application</button>

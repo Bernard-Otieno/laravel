@@ -1,7 +1,5 @@
 @extends('layout')
-
 @section('title', 'Perform Transaction')
-
 @section('content')
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="content-container text-center">
