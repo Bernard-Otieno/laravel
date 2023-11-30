@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\analyticsController;
 use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\LoanController;
@@ -66,8 +67,16 @@ Route::get('/fail_page', function () {
 
 
 Route::get('/index', [ChartController::class, 'chart1Data'])->name('index');
-// Route::get('/index', 'ChartController@chart2Data');
 Route::post('/loan_apply', [LoanController::class, 'loanPost'])->name('loan.post');
+
+Route::get('/analytics', [analyticsController::class, 'index'])->name('analytics.login');
+Route::post('/admin/analytics',[analyticsController::class, 'authenticateAdmin'] )->name('analytics.post');
+
+Route::get('/analytics/home', [analyticsController::class, 'accountStatistics'])->name('analytics.Home');
+Route::get('/analytics/credit_card', [analyticsController::class, 'cardStatistics'])->name('analytics.card');
+Route::get('/analytics/loan', [analyticsController::class, 'loanStatistics'])->name('analytics.loan');
+Route::get('/analytics/logout',  [analyticsController::class, 'logout'])->name('analytics.logout');
+
 
 
 
