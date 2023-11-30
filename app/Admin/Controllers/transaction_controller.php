@@ -30,7 +30,6 @@ class transaction_controller extends AdminController
         $grid->column('card_no', __('Card no'));
         $grid->column('card_id', __('card_id'));
         $grid->column('beneficiary_no', __('Beneficiary no'));
-        $grid->column('Amount', __('Amount'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 

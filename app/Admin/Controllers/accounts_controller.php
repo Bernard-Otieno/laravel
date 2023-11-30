@@ -30,6 +30,7 @@ class accounts_controller extends AdminController
         $grid->column('credit_card_id', __('Credit card id'));
         $grid->column('Customer_id', __('Customer id'));
         $grid->column('Account_no', __('Account no'));
+        $grid->column('Amount', __('Amount'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
