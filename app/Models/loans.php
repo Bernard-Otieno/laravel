@@ -7,4 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class loans extends Model
 {
     protected $table = 'loans_applicantions';
+    protected $primaryKey = 'id';
+    protected $foreignKey = 'account_id';
 }
